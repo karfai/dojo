@@ -13,6 +13,12 @@ CHIP DMux {
     OUT a, b;
 
     PARTS:
-    // Implementation missing.
+    Not(in=sel, out=nsel);
+
+    // a pin
+    And(a=in, b=nsel, out=a);
+    
+    // b pin
+    And(a=in, b=sel, out=b);
 }
 
