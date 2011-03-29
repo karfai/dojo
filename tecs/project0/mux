@@ -1,0 +1,3 @@
+    And(a=nsel, b=a[#], out=nsa#);
+    And(a=sel, b=b[#], out=sb#);
+    Or(a=nsa#, b=sb#, out=out[#]);
