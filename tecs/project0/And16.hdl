@@ -13,6 +13,37 @@ CHIP And16 {
     OUT out[16];
 
     PARTS:
-    // Implementation missing.
+    Nand(a=a[0], b=b[0], out=nab0);
+    Not(in=nab0, out=out[0]);
+    Nand(a=a[1], b=b[1], out=nab1);
+    Not(in=nab1, out=out[1]);
+    Nand(a=a[2], b=b[2], out=nab2);
+    Not(in=nab2, out=out[2]);
+    Nand(a=a[3], b=b[3], out=nab3);
+    Not(in=nab3, out=out[3]);
+    Nand(a=a[4], b=b[4], out=nab4);
+    Not(in=nab4, out=out[4]);
+    Nand(a=a[5], b=b[5], out=nab5);
+    Not(in=nab5, out=out[5]);
+    Nand(a=a[6], b=b[6], out=nab6);
+    Not(in=nab6, out=out[6]);
+    Nand(a=a[7], b=b[7], out=nab7);
+    Not(in=nab7, out=out[7]);
+    Nand(a=a[8], b=b[8], out=nab8);
+    Not(in=nab8, out=out[8]);
+    Nand(a=a[9], b=b[9], out=nab9);
+    Not(in=nab9, out=out[9]);
+    Nand(a=a[10], b=b[10], out=nab10);
+    Not(in=nab10, out=out[10]);
+    Nand(a=a[11], b=b[11], out=nab11);
+    Not(in=nab11, out=out[11]);
+    Nand(a=a[12], b=b[12], out=nab12);
+    Not(in=nab12, out=out[12]);
+    Nand(a=a[13], b=b[13], out=nab13);
+    Not(in=nab13, out=out[13]);
+    Nand(a=a[14], b=b[14], out=nab14);
+    Not(in=nab14, out=out[14]);
+    Nand(a=a[15], b=b[15], out=nab15);
+    Not(in=nab15, out=out[15]);
 }
 
