@@ -18,4 +18,88 @@ CHIP Mux4Way16 {
 
     PARTS:
     // Implementation missing.
+    Not(in=sel[0], out=nsel0);
+    Not(in=sel[1], out=nsel1);
+
+    And(a=nsel0, b=nsel1, out=sela);
+    And(a=sel[0], b=nsel1, out=selb);
+    And(a=nsel0, b=sel[1], out=selc);
+    And(a=sel[0], b=sel[1], out=seld);
+
+    And16(
+     a[0]=sela,
+     a[1]=sela,
+     a[2]=sela,
+     a[3]=sela,
+     a[4]=sela,
+     a[5]=sela,
+     a[6]=sela,
+     a[7]=sela,
+     a[8]=sela,
+     a[9]=sela,
+     a[10]=sela,
+     a[11]=sela,
+     a[12]=sela,
+     a[13]=sela,
+     a[14]=sela,
+     a[15]=sela,
+     b=a, out=abits);
+    And16(
+     a[0]=selb,
+     a[1]=selb,
+     a[2]=selb,
+     a[3]=selb,
+     a[4]=selb,
+     a[5]=selb,
+     a[6]=selb,
+     a[7]=selb,
+     a[8]=selb,
+     a[9]=selb,
+     a[10]=selb,
+     a[11]=selb,
+     a[12]=selb,
+     a[13]=selb,
+     a[14]=selb,
+     a[15]=selb,
+     b=b, out=bbits);
+    And16(
+     a[0]=selc,
+     a[1]=selc,
+     a[2]=selc,
+     a[3]=selc,
+     a[4]=selc,
+     a[5]=selc,
+     a[6]=selc,
+     a[7]=selc,
+     a[8]=selc,
+     a[9]=selc,
+     a[10]=selc,
+     a[11]=selc,
+     a[12]=selc,
+     a[13]=selc,
+     a[14]=selc,
+     a[15]=selc,
+     b=c, out=cbits);
+    And16(
+     a[0]=seld,
+     a[1]=seld,
+     a[2]=seld,
+     a[3]=seld,
+     a[4]=seld,
+     a[5]=seld,
+     a[6]=seld,
+     a[7]=seld,
+     a[8]=seld,
+     a[9]=seld,
+     a[10]=seld,
+     a[11]=seld,
+     a[12]=seld,
+     a[13]=seld,
+     a[14]=seld,
+     a[15]=seld,
+     b=d, out=dbits);
+
+     Or16(a=abits, b=bbits, out=abbits);
+     Or16(a=cbits, b=dbits, out=cdbits);
+     Or16(a=abbits, b=cdbits, out=out);
 }
