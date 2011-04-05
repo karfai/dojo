@@ -19,6 +19,176 @@ CHIP Mux8Way16 {
 
     OUT out[16];
 
-    PARTS: 
-   // Implementation missing.
+    PARTS:
+    Not(in=sel[0], out=nsel0);
+    Not(in=sel[1], out=nsel1);
+    Not(in=sel[2], out=nsel2);
+
+    And(a=nsel0, b=nsel1, out=sel00);
+    And(a=sel[0], b=nsel1, out=sel01);
+    And(a=nsel0, b=sel[1], out=sel10);
+    And(a=sel[0], b=sel[1], out=sel11);
+    
+    And(a=nsel2, b=sel00, out=sela);  // 000
+    And(a=nsel2, b=sel01, out=selb);  // 001
+    And(a=nsel2, b=sel10, out=selc);  // 010
+    And(a=nsel2, b=sel11, out=seld);  // 011
+
+    And(a=sel[2], b=sel00, out=sele); // 100
+    And(a=sel[2], b=sel01, out=self); // 101
+    And(a=sel[2], b=sel10, out=selg); // 110
+    And(a=sel[2], b=sel11, out=selh); // 111
+
+    And16(
+     a[0]=sela,
+     a[1]=sela,
+     a[2]=sela,
+     a[3]=sela,
+     a[4]=sela,
+     a[5]=sela,
+     a[6]=sela,
+     a[7]=sela,
+     a[8]=sela,
+     a[9]=sela,
+     a[10]=sela,
+     a[11]=sela,
+     a[12]=sela,
+     a[13]=sela,
+     a[14]=sela,
+     a[15]=sela,
+     b=a, out=abits);
+    And16(
+     a[0]=selb,
+     a[1]=selb,
+     a[2]=selb,
+     a[3]=selb,
+     a[4]=selb,
+     a[5]=selb,
+     a[6]=selb,
+     a[7]=selb,
+     a[8]=selb,
+     a[9]=selb,
+     a[10]=selb,
+     a[11]=selb,
+     a[12]=selb,
+     a[13]=selb,
+     a[14]=selb,
+     a[15]=selb,
+     b=b, out=bbits);
+    And16(
+     a[0]=selc,
+     a[1]=selc,
+     a[2]=selc,
+     a[3]=selc,
+     a[4]=selc,
+     a[5]=selc,
+     a[6]=selc,
+     a[7]=selc,
+     a[8]=selc,
+     a[9]=selc,
+     a[10]=selc,
+     a[11]=selc,
+     a[12]=selc,
+     a[13]=selc,
+     a[14]=selc,
+     a[15]=selc,
+     b=c, out=cbits);
+    And16(
+     a[0]=seld,
+     a[1]=seld,
+     a[2]=seld,
+     a[3]=seld,
+     a[4]=seld,
+     a[5]=seld,
+     a[6]=seld,
+     a[7]=seld,
+     a[8]=seld,
+     a[9]=seld,
+     a[10]=seld,
+     a[11]=seld,
+     a[12]=seld,
+     a[13]=seld,
+     a[14]=seld,
+     a[15]=seld,
+     b=d, out=dbits);
+    And16(
+     a[0]=sele,
+     a[1]=sele,
+     a[2]=sele,
+     a[3]=sele,
+     a[4]=sele,
+     a[5]=sele,
+     a[6]=sele,
+     a[7]=sele,
+     a[8]=sele,
+     a[9]=sele,
+     a[10]=sele,
+     a[11]=sele,
+     a[12]=sele,
+     a[13]=sele,
+     a[14]=sele,
+     a[15]=sele,
+     b=e, out=ebits);
+    And16(
+     a[0]=self,
+     a[1]=self,
+     a[2]=self,
+     a[3]=self,
+     a[4]=self,
+     a[5]=self,
+     a[6]=self,
+     a[7]=self,
+     a[8]=self,
+     a[9]=self,
+     a[10]=self,
+     a[11]=self,
+     a[12]=self,
+     a[13]=self,
+     a[14]=self,
+     a[15]=self,
+     b=f, out=fbits);
+    And16(
+     a[0]=selg,
+     a[1]=selg,
+     a[2]=selg,
+     a[3]=selg,
+     a[4]=selg,
+     a[5]=selg,
+     a[6]=selg,
+     a[7]=selg,
+     a[8]=selg,
+     a[9]=selg,
+     a[10]=selg,
+     a[11]=selg,
+     a[12]=selg,
+     a[13]=selg,
+     a[14]=selg,
+     a[15]=selg,
+     b=g, out=gbits);
+    And16(
+     a[0]=selh,
+     a[1]=selh,
+     a[2]=selh,
+     a[3]=selh,
+     a[4]=selh,
+     a[5]=selh,
+     a[6]=selh,
+     a[7]=selh,
+     a[8]=selh,
+     a[9]=selh,
+     a[10]=selh,
+     a[11]=selh,
+     a[12]=selh,
+     a[13]=selh,
+     a[14]=selh,
+     a[15]=selh,
+     b=h, out=hbits);
+
+     Or16(a=abits, b=bbits, out=abbits);
+     Or16(a=cbits, b=dbits, out=cdbits);
+     Or16(a=ebits, b=fbits, out=efbits);
+     Or16(a=gbits, b=hbits, out=ghbits);
+     Or16(a=abbits, b=cdbits, out=abcdbits);
+     Or16(a=efbits, b=ghbits, out=efghbits);
+     Or16(a=abcdbits, b=efghbits, out=out);
 }

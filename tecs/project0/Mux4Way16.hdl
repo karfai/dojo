@@ -17,7 +17,6 @@ CHIP Mux4Way16 {
     OUT out[16];
 
     PARTS:
-    // Implementation missing.
     Not(in=sel[0], out=nsel0);
     Not(in=sel[1], out=nsel1);
 
