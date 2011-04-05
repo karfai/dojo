@@ -33,7 +33,6 @@ CHIP Mux8Way16 {
     And(a=nsel2, b=sel01, out=selb);  // 001
     And(a=nsel2, b=sel10, out=selc);  // 010
     And(a=nsel2, b=sel11, out=seld);  // 011
-
     And(a=sel[2], b=sel00, out=sele); // 100
     And(a=sel[2], b=sel01, out=self); // 101
     And(a=sel[2], b=sel10, out=selg); // 110
