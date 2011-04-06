@@ -1,0 +1,25 @@
+http://schuchert.wikispaces.com/Monopoly(r)
+http://en.wikipedia.org/wiki/Monopoly_(game)
+
+* ISSUES
+** DONE railroads are using :cost, not :rent
+   CLOSED: [2009-11-19 Thu 21:47]
+** DONE anything with rent == 0, like a railroad, will NOT be :ownable
+   CLOSED: [2009-11-19 Thu 21:47]
+* Real Estate
+** railroad rents
+*** DONE Space instances need a Group
+    CLOSED: [2009-11-12 Thu 19:36]
+*** DONE Need to parse Groups and assign them
+    CLOSED: [2009-11-19 Thu 20:21]
+*** DONE Do rents
+    CLOSED: [2009-11-19 Thu 20:21]
+** utility rents
+** colour group rents
+** a player should mortgage a property to pay their debt
+** BUT a player should NOT mortgage to BUY
+** no rent due on a mortgaged property
+* Mechanics
+** rolling doubles == roll again
+* Jail
+

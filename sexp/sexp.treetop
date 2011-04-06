@@ -1,0 +1,21 @@
+grammar SExp
+  rule sexp
+    '(' func args ')' <SExpC>
+  end
+
+  rule args
+   (sp inner:(number / sexp))+
+  end
+
+  rule func
+    'add' / 'sub' / 'mul' / 'div' / 'list' / 'car' / 'cdr'
+  end
+
+  rule sp
+    ' '
+  end
+
+  rule number
+    '-'? [0-9]+ <Number>
+  end
+end

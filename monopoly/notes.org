@@ -1,0 +1,3 @@
+# 4 railways. Players collect $25 rent if they own one station, $50 if they own two, $100 if they own three and $200 if they own all four. These are usually replaced by railway stations in non-U.S. editions of Monopoly.
+# 2 utilities. Rent is four times dice value if player owns one utility, but 10 times dice value if player owns both. Hotels and houses cannot be built on utilities or stations.
+http://monopoly.wikia.com/wiki/Mediterranean_Avenue
