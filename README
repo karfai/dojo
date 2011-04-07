@@ -1,0 +1,8 @@
+This is a generally public repo used by people working at the Ottawa Coding Dojo to share code. For more information visit http://dojo.strangeware.ca.
+
+Contents:
+
+- tecs/: Working through _The Element of Computer Systems_ (http://www1.idc.ac.il/tecs/). Early 2011. Participants: DK, AO, SC.
+- sexp/: Experiments with an s-expression language using treetop and ll. Participants: DK, NW.
+- monopoly/: Exploring simple object model construction in ruby using Monopoly (the board game). Participants: DK, KS, NW.
+- 
