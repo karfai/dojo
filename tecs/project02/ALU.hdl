@@ -51,29 +51,10 @@ CHIP ALU {
     
     Mux16(sel=f, a=xay, b=xpy, out=oc);
     Not16(in=oc, out=noc);
-    Mux16(sel=no, a=oc, b=noc, out=out, out[15]=ng);
+    Mux16(sel=no, a=oc, b=noc, out=out, out[15]=ng, out[0..7]=ol, out[8..15]=oh);
 
-    Or8Way(in=x[0..7], out=lxn0);
-    Or8Way(in=x[8..15], out=hxn0);
-    Or(a=lxn0, b=hxn0, out=xnin0);
-    Not(in=xnin0, out=xin0);
-    Or(a=xin0, b=zx, out=xin0ox0);
-
-    And(a=nx, b=xin0, out=xmade1);
-    Not(in=xmade1, out=nxmade1);
-    And(a=xin0ox0, b=nxmade1, out=xtends0);
-
-    Or8Way(in=y[0..7], out=lyn0);
-    Or8Way(in=y[8..15], out=hyn0);
-    Or(a=lyn0, b=hyn0, out=ynin0);
-    Not(in=ynin0, out=yin0);
-    Or(a=yin0, b=zy, out=yin0oy0);
-
-    And(a=ny, b=yin0, out=ymade1);
-    Not(in=ymade1, out=nymade1);
-    And(a=yin0oy0, b=nymade1, out=ytends0);
-
-    And(a=xtends0, b=ytends0, out=tends0);
-    Not(in=no, out=nno);
-    And(a=tends0, b=nno, out=zr);
+    Or8Way(in=ol, out=l0);
+    Or8Way(in=oh, out=h0);
+    Or(a=l0, b=h0, out=nzr);
+    Not(in=nzr, out=zr);
 }
