@@ -59,9 +59,9 @@ CHIP ALU {
     Not(in=xnin0, out=xin0);
     Or(a=xin0, b=zx, out=xin0ox0);
 
-    And(a=nx, b=xin0, out=xis1);
-    Not(in=xis1, out=nxis1);
-    And(a=xin0ox0, b=nxis1, out=xtends0);
+    And(a=nx, b=xin0, out=xmade1);
+    Not(in=xmade1, out=nxmade1);
+    And(a=xin0ox0, b=nxmade1, out=xtends0);
 
     Or8Way(in=y[0..7], out=lyn0);
     Or8Way(in=y[8..15], out=hyn0);
@@ -69,9 +69,11 @@ CHIP ALU {
     Not(in=ynin0, out=yin0);
     Or(a=yin0, b=zy, out=yin0oy0);
 
-    And(a=ny, b=yin0, out=yis1);
-    Not(in=yis1, out=nyis1);
-    And(a=yin0oy0, b=nyis1, out=ytends0);
+    And(a=ny, b=yin0, out=ymade1);
+    Not(in=ymade1, out=nymade1);
+    And(a=yin0oy0, b=nymade1, out=ytends0);
 
-    And(a=xtends0, b=ytends0, out=zr);
+    And(a=xtends0, b=ytends0, out=tends0);
+    Not(in=no, out=nno);
+    And(a=tends0, b=nno, out=zr);
 }
