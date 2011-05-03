@@ -20,4 +20,54 @@ CHIP RAM512 {
     OUT out[16];
 
     PARTS:
+    Not(in=address[6], out=nmsb0);
+    Not(in=address[7], out=nmsb1);
+    Not(in=address[8], out=nmsb2);
+
+    And(a=nmsb0, b=nmsb1, out=x00);
+    And(a=address[6], b=nmsb1, out=x01);
+    And(a=nmsb0, b=address[7], out=x10);
+    And(a=address[6], b=address[7], out=x11);
+
+    And(a=nmsb2, b=x00, out=sb000);
+    And(a=nmsb2, b=x01, out=sb001);
+    And(a=nmsb2, b=x10, out=sb010);
+    And(a=nmsb2, b=x11, out=sb011);
+
+    And(a=address[8], b=x00, out=sb100);
+    And(a=address[8], b=x01, out=sb101);
+    And(a=address[8], b=x10, out=sb110);
+    And(a=address[8], b=x11, out=sb111);
+
+    And(a=load, b=sb000, out=lb000);
+    And(a=load, b=sb001, out=lb001);
+    And(a=load, b=sb010, out=lb010);
+    And(a=load, b=sb011, out=lb011);
+
+    And(a=load, b=sb100, out=lb100);
+    And(a=load, b=sb101, out=lb101);
+    And(a=load, b=sb110, out=lb110);
+    And(a=load, b=sb111, out=lb111);
+
+    RAM64(in=in, address=address[0..5], load=lb000, out=b000);
+    RAM64(in=in, address=address[0..5], load=lb001, out=b001);
+    RAM64(in=in, address=address[0..5], load=lb010, out=b010);
+    RAM64(in=in, address=address[0..5], load=lb011, out=b011);
+
+    RAM64(in=in, address=address[0..5], load=lb100, out=b100);
+    RAM64(in=in, address=address[0..5], load=lb101, out=b101);
+    RAM64(in=in, address=address[0..5], load=lb110, out=b110);
+    RAM64(in=in, address=address[0..5], load=lb111, out=b111);
+
+    Mux8Way16(
+      a=b000,
+      b=b001,
+      c=b010,
+      d=b011,
+      e=b100,
+      f=b101,
+      g=b110,
+      h=b111,
+      sel=address[6..8],
+      out=out);
 }
