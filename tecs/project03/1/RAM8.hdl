@@ -20,20 +20,20 @@ CHIP RAM8 {
     OUT out[16];
 
     PARTS:
-    Not(in=address[0], out=na0);
-    Not(in=address[1], out=na1);
-    Not(in=address[2], out=na2);
+    Not(in=address[0], out=nmsb0);
+    Not(in=address[1], out=nmsb1);
+    Not(in=address[2], out=nmsb2);
 
-    And(a=na0, b=na1, out=x00);
-    And(a=address[0], b=na1, out=x01);
-    And(a=na0, b=address[1], out=x10);
+    And(a=nmsb0, b=nmsb1, out=x00);
+    And(a=address[0], b=nmsb1, out=x01);
+    And(a=nmsb0, b=address[1], out=x10);
     And(a=address[0], b=address[1], out=x11);
 
 
-    And(a=na2, b=x00, out=sr000);
-    And(a=na2, b=x01, out=sr001);
-    And(a=na2, b=x10, out=sr010);
-    And(a=na2, b=x11, out=sr011);
+    And(a=nmsb2, b=x00, out=sr000);
+    And(a=nmsb2, b=x01, out=sr001);
+    And(a=nmsb2, b=x10, out=sr010);
+    And(a=nmsb2, b=x11, out=sr011);
 
     And(a=address[2], b=x00, out=sr100);
     And(a=address[2], b=x01, out=sr101);

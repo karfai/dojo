@@ -20,19 +20,19 @@ CHIP RAM64 {
     OUT out[16];
 
     PARTS:
-    Not(in=address[3], out=na3);
-    Not(in=address[4], out=na4);
-    Not(in=address[5], out=na5);
+    Not(in=address[3], out=nmsb0);
+    Not(in=address[4], out=nmsb1);
+    Not(in=address[5], out=nmsb2);
 
-    And(a=na3, b=na4, out=x00);
-    And(a=address[3], b=na4, out=x01);
-    And(a=na3, b=address[4], out=x10);
+    And(a=nmsb0, b=nmsb1, out=x00);
+    And(a=address[3], b=nmsb1, out=x01);
+    And(a=nmsb0, b=address[4], out=x10);
     And(a=address[3], b=address[4], out=x11);
 
-    And(a=na5, b=x00, out=sb000);
-    And(a=na5, b=x01, out=sb001);
-    And(a=na5, b=x10, out=sb010);
-    And(a=na5, b=x11, out=sb011);
+    And(a=nmsb2, b=x00, out=sb000);
+    And(a=nmsb2, b=x01, out=sb001);
+    And(a=nmsb2, b=x10, out=sb010);
+    And(a=nmsb2, b=x11, out=sb011);
 
     And(a=address[5], b=x00, out=sb100);
     And(a=address[5], b=x01, out=sb101);

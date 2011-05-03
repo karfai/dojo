@@ -20,5 +20,4 @@ CHIP RAM512 {
     OUT out[16];
 
     PARTS:
-    // Implementation missing.
 }
