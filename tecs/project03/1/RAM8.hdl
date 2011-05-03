@@ -20,5 +20,55 @@ CHIP RAM8 {
     OUT out[16];
 
     PARTS:
-    // Implementation missing.
+    Not(in=address[0], out=na0);
+    Not(in=address[1], out=na1);
+    Not(in=address[2], out=na2);
+
+    And(a=na0, b=na1, out=x00);
+    And(a=address[0], b=na1, out=x01);
+    And(a=na0, b=address[1], out=x10);
+    And(a=address[0], b=address[1], out=x11);
+
+
+    And(a=na2, b=x00, out=sr000);
+    And(a=na2, b=x01, out=sr001);
+    And(a=na2, b=x10, out=sr010);
+    And(a=na2, b=x11, out=sr011);
+
+    And(a=address[2], b=x00, out=sr100);
+    And(a=address[2], b=x01, out=sr101);
+    And(a=address[2], b=x10, out=sr110);
+    And(a=address[2], b=x11, out=sr111);
+
+    And(a=load, b=sr000, out=L000);
+    And(a=load, b=sr001, out=L001);
+    And(a=load, b=sr010, out=L010);
+    And(a=load, b=sr011, out=L011);
+
+    And(a=load, b=sr100, out=L100);
+    And(a=load, b=sr101, out=L101);
+    And(a=load, b=sr110, out=L110);
+    And(a=load, b=sr111, out=L111);
+
+    Register(in=in, load=L000, out=r000);
+    Register(in=in, load=L001, out=r001);
+    Register(in=in, load=L010, out=r010);
+    Register(in=in, load=L011, out=r011);
+
+    Register(in=in, load=L100, out=r100);
+    Register(in=in, load=L101, out=r101);
+    Register(in=in, load=L110, out=r110);
+    Register(in=in, load=L111, out=r111);
+
+    Mux8Way16(
+      a=r000,
+      b=r001,
+      c=r010,
+      d=r011,
+      e=r100,
+      f=r101,
+      g=r110,
+      h=r111,
+      sel=address,
+      out=out);
 }
