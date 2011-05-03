@@ -21,5 +21,29 @@ CHIP RAM16K {
     OUT out[16];
 
     PARTS:
-    // Implementation missing.
+    Not(in=address[12], out=nmsb0);
+    Not(in=address[13], out=nmsb1);
+
+    And(a=nmsb0, b=nmsb1, out=sb00);
+    And(a=address[12], b=nmsb1, out=sb01);
+    And(a=nmsb0, b=address[13], out=sb10);
+    And(a=address[12], b=address[13], out=sb11);
+
+    And(a=load, b=sb00, out=lb00);
+    And(a=load, b=sb01, out=lb01);
+    And(a=load, b=sb10, out=lb10);
+    And(a=load, b=sb11, out=lb11);
+
+    RAM4K(in=in, address=address[0..11], load=lb00, out=b00);
+    RAM4K(in=in, address=address[0..11], load=lb01, out=b01);
+    RAM4K(in=in, address=address[0..11], load=lb10, out=b10);
+    RAM4K(in=in, address=address[0..11], load=lb11, out=b11);
+
+    Mux4Way16(
+      a=b00,
+      b=b01,
+      c=b10,
+      d=b11,
+      sel=address[12..13],
+      out=out);
 }
