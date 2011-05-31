@@ -1,48 +1,50 @@
 (TOP)
-
   @8191
   D=A
-  @R0
-  D=D+A
+  @I
   M=D
 
 (SCREEN_LOOP)
-// D=*R0
-  @R0
+  @KBD
   D=M
-// JMP to END if D == 0
-  @SCREEN_LOOP_END
-  D;JLT
-
-//  @KBD
-//  D=M
-//  @WHITE
-//  D;JEQ
+  @BLACK
+  D;JGT
 
   @SCREEN
   D=A
-  @R0
+
+  @I
+  D=D+M
+  A=D
+  M=0
+  
+  @DRAWN
+  0;JMP
+
+(BLACK)
+  @SCREEN
+  D=A
+
+  @I
   D=D+M
 
-  A=D
-  M=1
+  @WHERE
+  M=D
 
-//(WHITE)
-//  @SCREEN
-//  D=A
-//  @R0
-//  D=D+M
+  @0
+  D=!A
 
-//  A=D
-//  M=0
+  @WHERE
+  A=M
+  M=D
 
-// *R0=(*R0-1)
-  @R0
+(DRAWN)
+  @I
   D=M-1
   M=D
 
   @SCREEN_LOOP
-  0;JMP
+  D;JGE
 
 (SCREEN_LOOP_END)
   @TOP
