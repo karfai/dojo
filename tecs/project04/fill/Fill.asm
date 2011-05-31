@@ -5,36 +5,32 @@
   M=D
 
 (SCREEN_LOOP)
-  @KBD
-  D=M
-  @BLACK
-  D;JGT
-
   @SCREEN
   D=A
 
   @I
   D=D+M
-  A=D
+
+  @PIXEL
+  M=D
+
+  @KBD
+  D=M
+  @BLACK
+  D;JGT
+
+  @PIXEL
+  A=M
   M=0
   
   @DRAWN
   0;JMP
 
 (BLACK)
-  @SCREEN
-  D=A
-
-  @I
-  D=D+M
-
-  @WHERE
-  M=D
-
   @0
   D=!A
 
-  @WHERE
+  @PIXEL
   A=M
   M=D
 
