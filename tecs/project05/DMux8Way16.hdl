@@ -1,0 +1,190 @@
+/**
+ * 16-bit dmux with 3 selector bits (8 output pins)
+ */
+
+CHIP DMux8Way16 {
+
+    IN  a[16], b[16], c[16], d[16], e[16], f[16], g[16], h[16], sel[3];
+    OUT out[16];
+
+    PARTS:
+    Not(in=sel[0], out=nmsb0);
+    Not(in=sel[1], out=nmsb1);
+    Not(in=sel[2], out=nmsb2);
+
+    And(a=nmsb0, b=nmsb1, out=x00);
+    And(a=sel[0], b=nmsb1, out=x01);
+    And(a=nmsb0, b=sel[1], out=x10);
+    And(a=sel[0], b=sel[1], out=x11);
+
+    And(a=nmsb2, b=x00, out=sb000);
+    And(a=nmsb2, b=x01, out=sb001);
+    And(a=nmsb2, b=x10, out=sb010);
+    And(a=nmsb2, b=x11, out=sb011);
+
+    And(a=sel[2], b=x00, out=sb100);
+    And(a=sel[2], b=x01, out=sb101);
+    And(a=sel[2], b=x10, out=sb110);
+    And(a=sel[2], b=x11, out=sb111);
+
+    And16(
+        a=a,
+	b[0]=sb000,
+	b[1]=sb000,
+	b[2]=sb000,
+	b[3]=sb000,
+	b[4]=sb000,
+	b[5]=sb000,
+	b[6]=sb000,
+	b[7]=sb000,
+	b[8]=sb000,
+	b[9]=sb000,
+	b[10]=sb000,
+	b[11]=sb000,
+	b[12]=sb000,
+	b[13]=sb000,
+	b[14]=sb000,
+	b[15]=sb000,
+	out=oa);
+    And16(
+        a=b,
+	b[0]=sb001,
+	b[1]=sb001,
+	b[2]=sb001,
+	b[3]=sb001,
+	b[4]=sb001,
+	b[5]=sb001,
+	b[6]=sb001,
+	b[7]=sb001,
+	b[8]=sb001,
+	b[9]=sb001,
+	b[10]=sb001,
+	b[11]=sb001,
+	b[12]=sb001,
+	b[13]=sb001,
+	b[14]=sb001,
+	b[15]=sb001,
+	out=ob);
+    And16(
+        a=c,
+	b[0]=sb010,
+	b[1]=sb010,
+	b[2]=sb010,
+	b[3]=sb010,
+	b[4]=sb010,
+	b[5]=sb010,
+	b[6]=sb010,
+	b[7]=sb010,
+	b[8]=sb010,
+	b[9]=sb010,
+	b[10]=sb010,
+	b[11]=sb010,
+	b[12]=sb010,
+	b[13]=sb010,
+	b[14]=sb010,
+	b[15]=sb010,
+	out=oc);
+    And16(
+        a=d,
+	b[0]=sb011,
+	b[1]=sb011,
+	b[2]=sb011,
+	b[3]=sb011,
+	b[4]=sb011,
+	b[5]=sb011,
+	b[6]=sb011,
+	b[7]=sb011,
+	b[8]=sb011,
+	b[9]=sb011,
+	b[10]=sb011,
+	b[11]=sb011,
+	b[12]=sb011,
+	b[13]=sb011,
+	b[14]=sb011,
+	b[15]=sb011,
+	out=od);
+    And16(
+        a=e,
+	b[0]=sb100,
+	b[1]=sb100,
+	b[2]=sb100,
+	b[3]=sb100,
+	b[4]=sb100,
+	b[5]=sb100,
+	b[6]=sb100,
+	b[7]=sb100,
+	b[8]=sb100,
+	b[9]=sb100,
+	b[10]=sb100,
+	b[11]=sb100,
+	b[12]=sb100,
+	b[13]=sb100,
+	b[14]=sb100,
+	b[15]=sb100,
+	out=oe);
+    And16(
+        a=f,
+	b[0]=sb101,
+	b[1]=sb101,
+	b[2]=sb101,
+	b[3]=sb101,
+	b[4]=sb101,
+	b[5]=sb101,
+	b[6]=sb101,
+	b[7]=sb101,
+	b[8]=sb101,
+	b[9]=sb101,
+	b[10]=sb101,
+	b[11]=sb101,
+	b[12]=sb101,
+	b[13]=sb101,
+	b[14]=sb101,
+	b[15]=sb101,
+	out=of);
+    And16(
+        a=g,
+	b[0]=sb110,
+	b[1]=sb110,
+	b[2]=sb110,
+	b[3]=sb110,
+	b[4]=sb110,
+	b[5]=sb110,
+	b[6]=sb110,
+	b[7]=sb110,
+	b[8]=sb110,
+	b[9]=sb110,
+	b[10]=sb110,
+	b[11]=sb110,
+	b[12]=sb110,
+	b[13]=sb110,
+	b[14]=sb110,
+	b[15]=sb110,
+	out=og);
+    And16(
+        a=h,
+	b[0]=sb111,
+	b[1]=sb111,
+	b[2]=sb111,
+	b[3]=sb111,
+	b[4]=sb111,
+	b[5]=sb111,
+	b[6]=sb111,
+	b[7]=sb111,
+	b[8]=sb111,
+	b[9]=sb111,
+	b[10]=sb111,
+	b[11]=sb111,
+	b[12]=sb111,
+	b[13]=sb111,
+	b[14]=sb111,
+	b[15]=sb111,
+	out=oh);
+
+    Or16(a=oa, b=ob, out=oab);
+    Or16(a=oc, b=od, out=ocd);
+    Or16(a=oe, b=of, out=oef);
+    Or16(a=og, b=oh, out=ogh);
+    Or16(a=oab, b=ocd, out=oabcd);
+    Or16(a=oef, b=ogh, out=oefgh);
+    Or16(a=oabcd, b=oefgh, out=out);
+}
