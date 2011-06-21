@@ -40,5 +40,32 @@ CHIP CPU {
 
     PARTS:
     // Implementation missing.
+    Not(in=instruction[15], out=notA);
+
+    ARegister(load=false, out=curaval);
+    DRegister(load=false, out=curdval);
+    Mux16(sel=instruction[12], a=curaval, b=inM, out=yval);
+
+    ALU(
+        x=curdval,
+	y=yval,
+	zx=instruction[11],
+	nx=instruction[10],
+	zy=instruction[9],
+	ny=instruction[8],
+	f=instruction[7],
+	no=instruction[6],
+	out=resultALU,
+	zr=isZero,
+	ng=isNeg);
+   DMux8Way16(
+        sel=instruction[3..5],
+	b=outM,
+	c=dval,
+	d=dmval,
+	e=aval,
+	f=amval,
+	g=adval,
+	h=amdval);
 }
 
