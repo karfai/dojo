@@ -1,0 +1,102 @@
+IN  inM[16],         // M value input  (M = contents of RAM[A])
+    instruction[16], // Instruction for execution
+    reset;           // Signals whether to re-start the current
+
+OUT outM[16],        // M value output
+    writeM,          // Write into M? 
+    addressM[15],    // Address in data memory (of M)
+    pc[15];          // address of next instruction
+
+// decode current instruction
+
+/// break the instruction into fields: instruction[i xx a cccccc ddd jjj]
+is_address = instruction[15]; // msb
+deref = instruction[12];
+compute = instruction[6..11];
+dest = instruction[3..5];
+jump_cond = instruction[0..2];
+    
+if ( is_address ) {
+    A = instruction[0..14];
+} else {
+    compute_instruction(deref, compute, dest);
+}
+
+// next
+pc = reset ? 0 : compute_pc(jump_cond);
+
+void
+compute_instruction(deref, compute, dest) {
+    // functions
+    ALU[zx]=compute[5];
+    ALU[nx]=compute[4];
+    ALU[zy]=compute[3];
+    ALU[ny]=compute[2];
+    ALU[f]=compute[1];
+    ALU[no]=compute[0];
+
+    // values
+    ALU[x]=D;
+    ALU[y]=dref ? inM : A;
+
+    // assignments
+    writeM=dest[0];
+    outM=ALU[out];
+
+    if ( dest[1] ) {
+        D=ALU[out];
+    }
+
+    if ( dest[2] ) {
+        A=ALU[out];
+        addressM=ALU[out];
+    }
+}
+
+int16
+compute_pc(jump_cond) {
+    int16 jump=0;
+
+    switch (jump_cond) {
+        case 000:
+            // stay, kitty, stay
+            break;
+        case 001:
+//            if ( out > 0 ) {
+            jump=(!zr && !ng);
+            break;
+        case 010:
+//            if ( out == 0 ) {
+            jump=zr;
+            break;
+        case 011:
+//            if ( out >= 0 ) {
+            jump=(zr && !ng);
+            break;
+        case 100:
+//            if ( out < 0 ) {
+            jump=(!zr && ng);
+            break;
+        case 101:
+//            if ( out != 0 ) {
+            jump=(!zr);
+            break;
+        case 110:
+//            if ( out <= 0 ) {
+            jump=(zr && ng);
+            break;
+        case 111:
+            jump=1;
+            break;
+    }
+
+    return jump ? A : pc+1;
+}
+
+void
+jump() {
+    pc=reset ? 0 : A;
+}
+
+// execute current instruction
+// get next instruction
